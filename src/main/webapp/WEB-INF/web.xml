@@ -1,0 +1,53 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Spring Session Rest</display-name>
+
+	<filter>
+		<filter-name>securityFilter</filter-name>
+		<filter-class>com.manikanta.filter.SecurityFilter</filter-class>
+		<init-param>
+			<param-name>urls</param-name>
+			<param-value>
+			/rest/apps
+			</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>/rest/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Jersey main application controller -->
+	<servlet>
+		<servlet-name>jersey-web</servlet-name>
+		<!-- <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class> -->
+		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
+
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>
+				com.manikanta
+			</param-value>
+		</init-param>
+
+		<init-param>
+			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+		<init-param>
+			<param-name>com.sun.jersey.config.feature.Trace</param-name>
+			<param-value>false</param-value>
+		</init-param>
+
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>jersey-web</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+</web-app>
